@@ -1,0 +1,4 @@
+check process sshd with pidfile /var/run/sshd.pid
+    start program = "/etc/init.d/sshd start" with timeout 60 seconds
+    stop  program = "/etc/init.d/sshd stop" with timeout 60 seconds
+    if failed port 22 type tcp proto ssh with timeout 60 seconds then restart
