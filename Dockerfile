@@ -2,6 +2,7 @@ FROM centos:centos6
 MAINTAINER Kubomoto Osamu <kubomoto@gos-pa.co.jp>
 
 # timezone
+RUN echo 'ZONE="Asia/Tokyo"' > /etc/sysconfig/clock
 RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # lang
@@ -13,6 +14,7 @@ RUN rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 
 # System Update & Install packages
 RUN yum -y update
+RUN yum reinstall -y glibc-common
 RUN yum -y install httpd
 RUN yum -y install php php-gd php-mysql php-intl php-xml php-xmlrpc php-soap php-pecl-apc php-odbc php-mbstring
 RUN sed -ri 's/;date.timezone =/date.timezone = Asia\/Tokyo/g' /etc/php.ini
